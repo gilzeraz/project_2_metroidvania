@@ -8,7 +8,7 @@ extends CharacterBody2D
 ## Default vertical jump velocity.
 const JUMP_VELOCITY: float = -400.0
 ## Default roll velocity.
-const ROLL_VELOCITY: float = 200.0
+const ROLL_VELOCITY: float = 350.0
 
 var speed: float = 200.0
 var is_right: bool = true: set = set_is_right
