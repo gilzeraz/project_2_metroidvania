@@ -1,23 +1,17 @@
 class_name AttackState
 extends State
 
-# Handles the player's attack combo state.
-#
-# Plays attack animations, tracks combo timing, and returns to idle when finished.
-
 
 ## Maximum time (seconds) allowed between combo inputs.
 const MAX_COMBO_TIME: float = 0.3
 ## Maximum number of combo steps.
 const MAX_COMBO: int = 3
 
-
 var _combo: int = 0
 var _combo_timer: float = 0.0
 var _can_combo: bool = false
 
 
-# Called when entering the attack state; initializes combo variables and starts the first attack animation
 func enter() -> void:
 	player.can_change_state = false
 	_combo = 0
@@ -28,7 +22,6 @@ func enter() -> void:
 	player.sprite.animation_finished.connect(_on_attack_finished)
 
 
-# Processes physics for attack logic and handles combo input timing
 func physics_update(delta: float) -> State:
 	if (
 		Input.is_action_just_pressed("attack")
@@ -50,12 +43,11 @@ func physics_update(delta: float) -> State:
 	return null
 
 
-# Called when exiting the attack state; allows state changes again
 func exit() -> void:
 	player.can_change_state = true
 
 
-# Enables the next combo input when the current attack animation ends
+## Enables the next combo input when the current attack animation ends
 func _on_attack_finished() -> void:
 	_can_combo = true
 	_combo_timer = 0.0

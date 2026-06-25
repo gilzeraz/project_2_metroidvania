@@ -1,15 +1,17 @@
 class_name JumpState
 extends State
 
+
 ## Minimum time after jump start before a double-jump is allowed.
 const CAN_JUMP: float = 0.05
+## Maximum jumps before touching floor again.
+const JUMP_QUANTITY: int = 2
 
 var jump_force: float = -400.0
 var jump_quant: int = 2
 var jump_started: float = 0.0
 
 
-# Starts a jump and applies initial vertical velocity
 func enter() -> void:
 	jump_started = 0.0
 	player.velocity.y = jump_force
@@ -18,7 +20,6 @@ func enter() -> void:
 	player.move_and_slide()
 
 
-# Handles jump physics, double-jump logic, and airborne attacks
 func physics_update(delta: float) -> State:
 	if not player.is_on_floor():
 		jump_started += delta
@@ -43,7 +44,7 @@ func physics_update(delta: float) -> State:
 		player.sprite.play("attack_air")
 
 	if player.is_on_floor():
-		jump_quant = 2
+		jump_quant = JUMP_QUANTITY
 		return player.idle
 
 	return null

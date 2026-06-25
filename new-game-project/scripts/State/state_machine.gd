@@ -1,6 +1,5 @@
 class_name StateMachine
 extends Node
-
 # Manages switching and updating of `State` child nodes.
 #
 # Initializes states with a reference to the player and routes physics updates.
@@ -9,7 +8,7 @@ extends Node
 var current_state: State = null
 
 
-# Assigns `player` to each child `State` and switches to the starting state
+## Assigns `player` to each child `State` and switches to the starting state
 func initialize(starting_state: State, player: Node) -> void:
 	for state: State in get_children():
 		state.player = player
@@ -17,7 +16,7 @@ func initialize(starting_state: State, player: Node) -> void:
 	change_state(starting_state)
 
 
-# Changes the active state, calling `exit` and `enter` appropriately
+## Changes the active state, calling `exit` and `enter` appropriately
 func change_state(new_state: State) -> void:
 	if current_state == new_state:
 		return
@@ -27,12 +26,12 @@ func change_state(new_state: State) -> void:
 	current_state.enter()
 
 
-# Optional per-frame update (currently unused)
+## Optional per-frame update (currently unused)
 func update(_delta: float) -> void:
 	pass
 
 
-# Awaits the current state's physics_update and applies a state change if returned
+## Awaits the current state's physics_update and applies a state change if returned
 func physics_update(delta: float) -> void:
 	@warning_ignore("redundant_await")
 	var new_state: State = await current_state.physics_update(delta)
