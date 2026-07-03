@@ -25,7 +25,6 @@ func _ready() -> void:
 
 
 func set_limits() -> void:
-	print(camera)
 	camera.limit_left = int(global_position.x)
 	camera.limit_top = int(global_position.y)
 	camera.limit_right = int(global_position.x) + width
