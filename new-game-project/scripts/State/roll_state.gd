@@ -13,7 +13,9 @@ func enter() -> void:
 	state_machine.change_state(player.idle)
 
 
-func physics_update(_delta: float) -> State:
+func physics_update(delta: float) -> State:
+	if not player.is_on_floor():
+		player.velocity.y += player.get_gravity().y * delta
 	player.move_and_slide()
 	return null
 

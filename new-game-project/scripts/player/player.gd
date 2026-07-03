@@ -10,9 +10,12 @@ const JUMP_VELOCITY: float = -400.0
 ## Default roll velocity.
 const ROLL_VELOCITY: float = 350.0
 
-var speed: float = 200.0
+static var player: Player = null
+
+var speed: float = 300.0
 var is_right: bool = true: set = set_is_right
 var can_change_state: bool = true
+var is_dropping = false
 
 
 #region References
@@ -33,6 +36,7 @@ var can_change_state: bool = true
 ## Initializes the state machine on ready
 func _ready() -> void:
 	state_machine.initialize(idle, self)
+	player = self
 
 
 ## Routes input to the state machine and changes states based on player input
@@ -40,6 +44,8 @@ func _physics_process(delta: float) -> void:
 	if can_change_state:
 		var axis: float = Input.get_axis("move_left", "move_right")
 		if is_on_floor():
+			if Input.is_action_just_pressed("down"):
+				drop_through_platform()
 			if axis != 0.0:
 				state_machine.change_state(run)
 
@@ -65,6 +71,15 @@ func _physics_process(delta: float) -> void:
 				state_machine.change_state(hurt)
 
 	state_machine.physics_update(delta)
+
+
+func drop_through_platform():
+	if is_dropping: return
+	is_dropping = true
+	set_collision_mask_value(2, false)
+	await get_tree().create_timer(0.25).timeout
+	set_collision_mask_value(2, true)
+	is_dropping = false
 
 
 ## Setter for the facing direction
