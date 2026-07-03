@@ -1,8 +1,7 @@
-class_name SceneManager
-extends Node2D
+extends CanvasLayer
 ## Manages scene transitions.
 ##
-## Performs a deferred scene change and emits `new_scene_ready`
+## Performs a deferred scene change and emits [signal new_scene_ready]
 ## once the new scene has been loaded.
 
 
@@ -10,7 +9,7 @@ extends Node2D
 signal new_scene_ready(target_area: int)
 
 
-## Change to `new_scene` and notify with `target_area`.
+## Change to [param new_scene] and notify with [param target_area].
 func transition_scene(new_scene: String, target_area: int) -> void:
 	get_tree().change_scene_to_file.call_deferred(new_scene)
 	await get_tree().scene_changed

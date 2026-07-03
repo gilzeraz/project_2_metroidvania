@@ -7,18 +7,17 @@ extends Node2D
 
 
 ## The size of the transition area's collision shape.
-@export var size: Vector2 := Vector2(32.0, 32.0) : set = _on_size_changed
+@export var size: Vector2 = Vector2(32.0, 32.0): set = _on_size_changed
 ## The local spawn position for the player after transition.
-@export var spawn_position: Vector2 := Vector2.ZERO : set = _on_spawn_position_changed
+@export var spawn_position: Vector2 = Vector2.ZERO: set = _on_spawn_position_changed
 ## The identifier for this area.
-@export var area_id: int := 0
+@export var area_id: int = 0
 
 @export_group("Target")
 ## The scene file to load when triggered.
-@export_file("*.tscn") var target_level: String := ""
+@export_file("*.tscn") var target_level: String = ""
 ## The target area id to open in the next scene.
-@export var target_area: int := 0
-
+@export var target_area: int = 0
 
 @onready var area_2d: Area2D = $Area2D
 @onready var spawn_point: Marker2D = $SpawnPoint

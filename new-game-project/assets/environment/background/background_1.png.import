@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqrdlqog87cjk"
-path="res://.godot/imported/MainLevBuild.png-55088e094c6cdc14a20f9f68b4eb7ef8.ctex"
+uid="uid://j8ucoydxosd1"
+path="res://.godot/imported/background_1.png-b255c3aa8733a990c7169eb6b3aa7f48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environment/tileset/MainLevBuild.png"
-dest_files=["res://.godot/imported/MainLevBuild.png-55088e094c6cdc14a20f9f68b4eb7ef8.ctex"]
+source_file="res://assets/environment/background/background_1.png"
+dest_files=["res://.godot/imported/background_1.png-b255c3aa8733a990c7169eb6b3aa7f48.ctex"]
 
 [params]
 

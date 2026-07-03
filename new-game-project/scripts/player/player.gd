@@ -15,6 +15,7 @@ static var player: Player = null
 var speed: float = 300.0
 var is_right: bool = true: set = set_is_right
 var can_change_state: bool = true
+var dropping_through_timer: float = 0.25
 var is_dropping = false
 
 
@@ -77,7 +78,7 @@ func drop_through_platform():
 	if is_dropping: return
 	is_dropping = true
 	set_collision_mask_value(2, false)
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(dropping_through_timer).timeout
 	set_collision_mask_value(2, true)
 	is_dropping = false
 
