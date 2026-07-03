@@ -10,29 +10,26 @@ extends Node2D
 ## Maximum z_index.
 const INDEX: int = 648
 
-
 ## The width of the level bounds in pixels.
 @export_range(1, 4096, 32, "suffix:px") var width: int = 1152: set = _on_width_changed
 ## The height of the level bounds in pixels.
 @export_range(1, 2048, 32, "suffix:px") var height: int = 648: set = _on_height_changed
 
+var camera: Camera2D
+	
 
 func _ready() -> void:
 	z_index = INDEX
 
 	if Engine.is_editor_hint(): return
 
-	var _camera: Camera2D
 
-	while not _camera:
-		await get_tree().process_frame
-		if not is_inside_tree(): return
-		_camera = get_viewport().get_camera_2d()
-
-	_camera.limit_left = int(global_position.x)
-	_camera.limit_top = int(global_position.y)
-	_camera.limit_right = int(global_position.x) + width
-	_camera.limit_bottom = int(global_position.y) + height
+func set_limits() -> void:
+	print(camera)
+	camera.limit_left = int(global_position.x)
+	camera.limit_top = int(global_position.y)
+	camera.limit_right = int(global_position.x) + width
+	camera.limit_bottom = int(global_position.y) + height
 
 
 func _draw() -> void:

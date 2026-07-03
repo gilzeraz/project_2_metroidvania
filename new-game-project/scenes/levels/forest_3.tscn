@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cm7cpf0x88t2j"]
 
+[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/levels/room.gd" id="1_0t0k1"]
 [ext_resource type="Texture2D" uid="uid://qrivymf8eqb5" path="res://assets/environment/decorations/decoratives.png" id="1_e7oap"]
 [ext_resource type="Texture2D" uid="uid://j8ucoydxosd1" path="res://assets/environment/background/background_1.png" id="1_k15ss"]
 [ext_resource type="TileSet" uid="uid://dj7a0rp474s0" path="res://levels/level_1/abandon_forest.tres" id="1_nvvsg"]
@@ -1463,6 +1464,7 @@ texture = ExtResource("1_e7oap")
 sources/0 = SubResource("TileSetAtlasSource_k15ss")
 
 [node name="Introduction" type="Node2D" unique_id=1568404533]
+script = ExtResource("1_0t0k1")
 
 [node name="Background" type="Node" parent="." unique_id=713967438]
 

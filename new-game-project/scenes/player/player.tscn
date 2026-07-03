@@ -630,7 +630,7 @@ position = Vector2(0, -23.000002)
 shape = SubResource("RectangleShape2D_7obkq")
 debug_color = Color(0, 0.6, 0.69803923, 0.13725491)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1792014785]
+[node name="Camera" type="Camera2D" parent="." unique_id=1792014785]
 position = Vector2(0, -18.22)
 zoom = Vector2(1.6, 1.6)
 

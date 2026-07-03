@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cnixyg7oy3enw"]
 
+[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/levels/room.gd" id="1_2m4yb"]
 [ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/levels/level_bounds.gd" id="1_aw2ac"]
 [ext_resource type="TileSet" uid="uid://dj7a0rp474s0" path="res://levels/level_1/abandon_forest.tres" id="2_64smq"]
 [ext_resource type="PackedScene" uid="uid://d1w5ccem33kle" path="res://scenes/player/player.tscn" id="3_1fscp"]
@@ -1457,6 +1458,7 @@ texture = ExtResource("3_64smq")
 sources/0 = SubResource("TileSetAtlasSource_1fscp")
 
 [node name="RockCave3" type="Node2D" unique_id=1351465517]
+script = ExtResource("1_2m4yb")
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=1157249161]
 z_index = 648

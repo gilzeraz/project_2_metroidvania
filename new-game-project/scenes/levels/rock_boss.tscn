@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://drnfdv81fogkt"]
 
+[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/levels/room.gd" id="1_b6l7e"]
 [ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/levels/level_bounds.gd" id="1_w7502"]
 [ext_resource type="TileSet" uid="uid://dj7a0rp474s0" path="res://levels/level_1/abandon_forest.tres" id="2_bcww0"]
 [ext_resource type="PackedScene" uid="uid://d3o2s5enpk48j" path="res://scenes/level_transition/transition_area.tscn" id="3_b6l7e"]
@@ -1459,6 +1460,7 @@ sources/0 = SubResource("TileSetAtlasSource_b6l7e")
 
 [node name="RockBoss" type="Node2D" unique_id=1706857205]
 position = Vector2(-59, -20)
+script = ExtResource("1_b6l7e")
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=312533156]
 z_index = 648

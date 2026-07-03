@@ -18,7 +18,6 @@ var can_change_state: bool = true
 var dropping_through_timer: float = 0.25
 var is_dropping = false
 
-
 #region References
 @onready var state_machine: StateMachine = $StateMachine
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -31,6 +30,7 @@ var is_dropping = false
 @onready var defend: DefendState = $StateMachine/Defend
 @onready var roll: RollState = $StateMachine/Roll
 @onready var special: SpecialState = $StateMachine/Special
+@onready var camera: Camera2D = $Camera
 #endregion
 
 
