@@ -8,12 +8,15 @@ extends CharacterBody2D
 ## Default vertical jump velocity.
 const JUMP_VELOCITY: float = -400.0
 ## Default roll velocity.
-const ROLL_VELOCITY: float = 200.0
+const ROLL_VELOCITY: float = 350.0
 
-var speed: float = 200.0
+static var player: Player = null
+
+var speed: float = 300.0
 var is_right: bool = true: set = set_is_right
 var can_change_state: bool = true
-
+var dropping_through_timer: float = 0.25
+var is_dropping = false
 
 #region References
 @onready var state_machine: StateMachine = $StateMachine
@@ -27,12 +30,14 @@ var can_change_state: bool = true
 @onready var defend: DefendState = $StateMachine/Defend
 @onready var roll: RollState = $StateMachine/Roll
 @onready var special: SpecialState = $StateMachine/Special
+@onready var camera: Camera2D = $Camera
 #endregion
 
 
 ## Initializes the state machine on ready
 func _ready() -> void:
 	state_machine.initialize(idle, self)
+	player = self
 
 
 ## Routes input to the state machine and changes states based on player input
@@ -40,6 +45,8 @@ func _physics_process(delta: float) -> void:
 	if can_change_state:
 		var axis: float = Input.get_axis("move_left", "move_right")
 		if is_on_floor():
+			if Input.is_action_just_pressed("down"):
+				drop_through_platform()
 			if axis != 0.0:
 				state_machine.change_state(run)
 
@@ -65,6 +72,15 @@ func _physics_process(delta: float) -> void:
 				state_machine.change_state(hurt)
 
 	state_machine.physics_update(delta)
+
+
+func drop_through_platform():
+	if is_dropping: return
+	is_dropping = true
+	set_collision_mask_value(2, false)
+	await get_tree().create_timer(dropping_through_timer).timeout
+	set_collision_mask_value(2, true)
+	is_dropping = false
 
 
 ## Setter for the facing direction
