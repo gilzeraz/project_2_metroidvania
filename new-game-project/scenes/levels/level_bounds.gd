@@ -22,6 +22,7 @@ func _ready() -> void:
 	z_index = INDEX
 
 	if Engine.is_editor_hint(): return
+	
 
 
 func set_limits() -> void:

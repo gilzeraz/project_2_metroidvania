@@ -1,15 +1,26 @@
 class_name IdleState
 extends State
+## Represents the default standing state of the actor.
+##
+## Halts horizontal movement, applies gravity to maintain floor contact,
+## and returns state transitions based on player input.
 
 
 func enter() -> void:
-	player.velocity.x = 0
-	player.sprite.play("idle")
-	player.move_and_slide()
-	
+	actor.velocity.x = 0.0
+	actor.sprite.play("idle")
+	actor.move_and_slide()
+
+
 func physics_update(delta: float) -> State:
-	player.velocity.y += player.get_gravity().y * delta
-	if not player.is_on_floor() and Input.is_action_just_pressed("jump"):
-		state_machine.change_state(player.jump)
-	player.move_and_slide()
+	actor.velocity.y += actor.get_gravity().y * delta
+
+	if Input.is_action_just_pressed("jump"):
+		return actor.jump
+
+	if Input.get_axis("move_left", "move_right") != 0.0:
+		return actor.run
+
+	actor.move_and_slide()
+
 	return null

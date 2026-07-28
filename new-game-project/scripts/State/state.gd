@@ -5,7 +5,7 @@ extends Node
 # Provides empty virtual methods that concrete states override.
 
 
-var player: Node = null
+var actor: Node = null
 var state_machine: StateMachine = null
 
 

@@ -1,14 +1,20 @@
 class_name DeathState
 extends State
+## Controls character death sequence and respawn flow.
+##
+## Halts movement, disables state transitions, plays the death animation,
+## and returns the actor to idle upon completion.
 
 
 func enter() -> void:
-	player.velocity.x = 0
-	player.can_change_state = false
-	player.sprite.play("death")
-	await player.sprite.animation_finished
-	state_machine.change_state(player.idle)
+	actor.velocity.x = 0.0
+	actor.can_change_state = false
+	actor.sprite.play("death")
+
+	await actor.sprite.animation_finished
+
+	state_machine.change_state(actor.idle)
 
 
 func exit() -> void:
-	player.can_change_state = true
+	actor.can_change_state = true

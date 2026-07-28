@@ -1,50 +1,60 @@
 class_name JumpState
 extends State
+## Manages vertical jump dynamics and air control.
+##
+## Handles jump execution, air movement, multi-jump logic, and state
+## transitions to attack, fall, or idle.
 
 
-## Minimum time after jump start before a double-jump is allowed.
-const CAN_JUMP: float = 0.05
-## Maximum jumps before touching floor again.
-const JUMP_QUANTITY: int = 2
+## Buffer time window for initial jump registration.
+const CAN_JUMP_TIME: float = 0.05
 
-var jump_force: float = -400.0
-var jump_quant: int = 2
-var jump_started: float = 0.0
+
+## Upward velocity force applied during a jump execution.
+@export var jump_force: float = -415.0
+
+
+var _jump_start_timer: float = 0.0
+var _consumed_entry_press: bool = false
 
 
 func enter() -> void:
-	jump_started = 0.0
-	player.velocity.y = jump_force
-	player.sprite.play("jump")
-	jump_quant -= 1
-	player.move_and_slide()
+	_do_jump()
+	_consumed_entry_press = true
 
 
 func physics_update(delta: float) -> State:
-	if not player.is_on_floor():
-		jump_started += delta
-		player.velocity.y += player.get_gravity().y * delta
-		var direction: float = Input.get_axis("move_left", "move_right")
-		player.velocity.x = direction * player.speed
-		player.move_and_slide()
-		if direction > 0.0:
-			player.sprite.flip_h = false
-		else:
-			player.sprite.flip_h = true
-		if (
-			jump_quant > 0
-			and not player.is_on_floor()
-			and Input.is_action_just_pressed("jump")
-			and jump_started > CAN_JUMP
-		):
-			enter()
-			return null
+	_jump_start_timer += delta
+	actor.velocity.y += actor.get_gravity().y * delta
 
-	if not player.is_on_floor() and Input.is_action_just_pressed("attack"):
-		player.sprite.play("attack_air")
+	var direction: float = Input.get_axis("move_left", "move_right")
+	actor.velocity.x = direction * actor.speed
+	if direction != 0.0:
+		actor.is_right = (direction > 0.0)
 
-	if player.is_on_floor():
-		jump_quant = JUMP_QUANTITY
-		return player.idle
+	if _consumed_entry_press:
+		_consumed_entry_press = false
+	elif actor.jump_count > 0 and Input.is_action_just_pressed("jump"):
+		_do_jump()
+		return null
+
+	if Input.is_action_just_pressed("attack"):
+		return actor.jump_attack
+
+	actor.move_and_slide()
+
+	if actor.velocity.y > 0.0:
+		return actor.fall
+	if actor.is_on_floor():
+		actor.jump_count = actor.MAX_JUMPS
+		return actor.idle
 
 	return null
+
+
+# Resets timer, applies upward force, updates sprite, and decrements jump counter
+func _do_jump() -> void:
+	_jump_start_timer = 0.0
+	actor.velocity.y = jump_force
+	actor.sprite.play("jump")
+	actor.jump_count -= 1

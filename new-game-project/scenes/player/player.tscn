@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du0508sp3jorw" path="res://scripts/player/player.gd" id="1_0owmy"]
 [ext_resource type="Texture2D" uid="uid://11mv20c6eath" path="res://assets/player/1_atk/1_atk_1.png" id="2_3j4b4"]
+[ext_resource type="Shader" uid="uid://coptrq35m426m" path="res://scenes/enemies/hit_flash.gdshader" id="2_arxfr"]
 [ext_resource type="Texture2D" uid="uid://cqfyvcxsp0yq6" path="res://assets/player/1_atk/1_atk_2.png" id="3_yj68g"]
 [ext_resource type="Texture2D" uid="uid://badjqtfgd6srx" path="res://assets/player/1_atk/1_atk_3.png" id="4_ioxgp"]
 [ext_resource type="Texture2D" uid="uid://cww8lm2cf1t5l" path="res://assets/player/1_atk/1_atk_4.png" id="5_cnsyf"]
@@ -138,9 +139,16 @@
 [ext_resource type="Texture2D" uid="uid://d1uiu2hn4pdd5" path="res://assets/player/roll/roll_4.png" id="124_v7w4y"]
 [ext_resource type="Texture2D" uid="uid://bxc7uh0so7jt" path="res://assets/player/roll/roll_5.png" id="125_58ivt"]
 [ext_resource type="Texture2D" uid="uid://dqrihnvvbvbkf" path="res://assets/player/roll/roll_6.png" id="126_y5qpa"]
+[ext_resource type="Script" uid="uid://pe6vgnhulivw" path="res://scenes/player/fall_state.gd" id="137_ei0bd"]
 [ext_resource type="Script" uid="uid://birqescstanq4" path="res://scripts/State/special_state.gd" id="141_63x2c"]
 [ext_resource type="Script" uid="uid://7p5vtue5fhlw" path="res://scripts/State/defend_state.gd" id="142_arxfr"]
 [ext_resource type="Script" uid="uid://dqr4ubedgr7mw" path="res://scripts/State/roll_state.gd" id="143_5ecds"]
+[ext_resource type="Script" uid="uid://fde3eupe7mx4" path="res://scenes/player/jump_attack.gd" id="143_ei0bd"]
+[ext_resource type="Script" uid="uid://csnji3qdfa0u8" path="res://scenes/player/hitbox.gd" id="143_nssm8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ecds"]
+shader = ExtResource("2_arxfr")
+shader_parameter/flash_amount = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wva7c"]
 animations = [{
@@ -301,9 +309,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("43_tdwly")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_air",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -484,6 +492,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("46_88c1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_hdu4s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_0wr6q")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("29_vkc6f")
 }, {
 "duration": 1.0,
@@ -543,15 +565,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("45_i6ap2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_88c1f")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_hdu4s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_0wr6q")
 }],
 "loop": false,
 "name": &"jump",
@@ -613,16 +626,21 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7obkq"]
 size = Vector2(29.292927, 45.54)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ecds"]
+size = Vector2(77, 60)
+
 [node name="Player" type="CharacterBody2D" unique_id=987693305 groups=["Player"]]
 collision_layer = 16
 collision_mask = 3
 script = ExtResource("1_0owmy")
+max_health = 50
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2140699078]
 texture_filter = 1
+material = SubResource("ShaderMaterial_5ecds")
 scale = Vector2(1.28125, 1.28125)
 sprite_frames = SubResource("SpriteFrames_wva7c")
-animation = &"attack_special"
+animation = &"attack_air"
 offset = Vector2(0, -63)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=487632841]
@@ -646,6 +664,9 @@ script = ExtResource("10_h17s1")
 [node name="Jump" type="Node" parent="StateMachine" unique_id=818584579]
 script = ExtResource("11_je7p5")
 
+[node name="Fall" type="Node" parent="StateMachine" unique_id=258541645]
+script = ExtResource("137_ei0bd")
+
 [node name="Attack" type="Node" parent="StateMachine" unique_id=259782306]
 script = ExtResource("12_fm80t")
 
@@ -664,3 +685,14 @@ script = ExtResource("143_5ecds")
 [node name="Special" type="Node" parent="StateMachine" unique_id=890677513]
 script = ExtResource("141_63x2c")
 metadata/_custom_type_script = "uid://b5h24ery3h7ft"
+
+[node name="JumpAttack" type="Node" parent="StateMachine" unique_id=40057385]
+script = ExtResource("143_ei0bd")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=232544239]
+collision_mask = 32
+script = ExtResource("143_nssm8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1960913307]
+position = Vector2(2.5, -31)
+shape = SubResource("RectangleShape2D_5ecds")

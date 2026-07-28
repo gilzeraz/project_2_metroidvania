@@ -1,26 +1,48 @@
 class_name Player
 extends CharacterBody2D
-# Player controller node.
-#
-# Handles input routing and exposes the player's named states for the state machine.
+## Controls player movement, actions, and combat state routing.
+##
+## Manages state transitions via StateMachine, handles player collision behaviors,
+## and holds core combat attributes such as health and invincibility.
 
 
 ## Default vertical jump velocity.
 const JUMP_VELOCITY: float = -400.0
 ## Default roll velocity.
 const ROLL_VELOCITY: float = 350.0
+## Maximum number of jumps allowed before landing.
+const MAX_JUMPS: int = 2
+## Collision layer index for one-way platforms.
+const ONE_WAY_PLATFORM_LAYER: int = 2
+## Damage multiplier applied when the player takes damage while defending.
+const DEFENSE_DAMAGE_MULTIPLIER: float = 0.2
 
+
+## Global reference to the current active player instance.
 static var player: Player = null
 
-var speed: float = 300.0
-var is_right: bool = true: set = set_is_right
-var can_change_state: bool = true
-var dropping_through_timer: float = 0.25
-var is_dropping = false
 
-#region References
+## Maximum health value assigned to the player on initialization.
+@export var max_health: int = 8
+
+
+var speed: float = 300.0
+var dropping_through_timer: float = 0.25
+var health: int = 0
+var jump_count: int = MAX_JUMPS
+var is_invincible: bool = false
+var is_defending: bool = false
+var is_right: bool = true:
+	set = set_is_right
+var can_change_state: bool = true
+var is_dropping: bool = false
+var _impact_velocity: float = 0.0
+
+
 @onready var state_machine: StateMachine = $StateMachine
+@onready var hitbox: Area2D = $Hitbox
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var camera: Camera2D = $Camera
 @onready var idle: IdleState = $StateMachine/Idle
 @onready var run: RunState = $StateMachine/Run
 @onready var jump: JumpState = $StateMachine/Jump
@@ -29,18 +51,17 @@ var is_dropping = false
 @onready var death: DeathState = $StateMachine/Death
 @onready var defend: DefendState = $StateMachine/Defend
 @onready var roll: RollState = $StateMachine/Roll
+@onready var fall: FallState = $StateMachine/Fall
+@onready var jump_attack: JumpAttack = $StateMachine/JumpAttack
 @onready var special: SpecialState = $StateMachine/Special
-@onready var camera: Camera2D = $Camera
-#endregion
 
 
-## Initializes the state machine on ready
 func _ready() -> void:
+	health = max_health
 	state_machine.initialize(idle, self)
 	player = self
 
 
-## Routes input to the state machine and changes states based on player input
 func _physics_process(delta: float) -> void:
 	if can_change_state:
 		var axis: float = Input.get_axis("move_left", "move_right")
@@ -74,17 +95,38 @@ func _physics_process(delta: float) -> void:
 	state_machine.physics_update(delta)
 
 
-func drop_through_platform():
-	if is_dropping: return
-	is_dropping = true
-	set_collision_mask_value(2, false)
-	await get_tree().create_timer(dropping_through_timer).timeout
-	set_collision_mask_value(2, true)
-	is_dropping = false
-
-
-## Setter for the facing direction
+# Updates character facing direction and flips sprite horizontally
 func set_is_right(value: bool) -> void:
 	is_right = value
 	if not is_node_ready(): return
 	sprite.flip_h = not is_right
+
+
+# Temporarily disables platform collision to pass through one-way platforms
+func drop_through_platform() -> void:
+	if is_dropping: return
+	is_dropping = true
+	set_collision_mask_value(ONE_WAY_PLATFORM_LAYER, false)
+	await get_tree().create_timer(dropping_through_timer).timeout
+	set_collision_mask_value(ONE_WAY_PLATFORM_LAYER, true)
+	is_dropping = false
+
+
+# Calculates and applies incoming damage based on defensive status
+func take_damage(damage_amount: int, attacker: Node2D = null) -> void:
+	if is_invincible: return
+
+	if is_defending:
+		var reduced_damage: int = int(damage_amount * DEFENSE_DAMAGE_MULTIPLIER)
+		health -= reduced_damage
+		
+		state_machine.current_state.apply_shield_knockback(attacker)
+		
+		if health <= 0:
+			state_machine.change_state(death)
+	else:
+		health -= damage_amount
+		if health > 0:
+			state_machine.change_state(hurt)
+		else:
+			state_machine.change_state(death)
