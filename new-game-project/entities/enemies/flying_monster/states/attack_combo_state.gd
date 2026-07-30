@@ -4,6 +4,7 @@ extends State
 
 
 #region Properties
+## Tracks which part of the dive attack is currently playing.
 enum Phase {
 	## Locked in place, playing the warning animation before diving.
 	TELEGRAPH,

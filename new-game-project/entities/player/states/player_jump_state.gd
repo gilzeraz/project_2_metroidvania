@@ -28,8 +28,7 @@ func physics_update(delta: float) -> State:
 		actor.is_right = (direction > 0.0)
 		
 	if _consumed_entry_press:
-		# ignores the jump press that triggered entry into this state, so it
-		# doesn't get read a second time and immediately re-trigger _do_jump()
+		# ignores the jump press that triggered entry into this state.
 		_consumed_entry_press = false
 		
 	elif actor.jump_count > 0 and Input.is_action_just_pressed("jump"):
@@ -42,14 +41,12 @@ func physics_update(delta: float) -> State:
 		
 	actor.move_and_slide()
 	
-	# velocity.y > 0 means gravity has already overtaken the jump impulse,
-	# so the arc peaked and the actor is now descending
+	# velocity.y > 0 means gravity has already overtaken the jump impulse.
 	if actor.velocity.y > 0.0:
 		return actor.fall
 		
 	if actor.is_on_floor():
-		# only reachable on the frame move_and_slide() lands on a short jump,
-		# before gravity would have pushed velocity.y past zero
+		# only reachable on the frame move_and_slide() lands on a short jump.
 		actor.jump_count = actor.MAX_JUMPS
 		return actor.idle
 		

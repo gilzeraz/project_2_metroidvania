@@ -79,8 +79,7 @@ func _physics_process(delta: float) -> void:
 	if direction != 0.0:
 		facing_direction = int(direction)
 
-	# runs after facing_direction updates, so the enemy still turns toward
-	# the player while idle, it just won't start an attack from here
+	# runs after facing_direction updates, so the enemy still turns towards.
 	if state_machine.current_state is EnemyIdleState: return
 
 	if distance <= attack_range:
@@ -102,8 +101,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	elif distance >= min_attack_range and distance <= max_attack_range:
-		# outside melee range but within ranged range, roll for a ranged attack
-		# instead of always firing, so the enemy doesn't spam it every frame
+		# outside melee range but within ranged range, roll for a ranged attack.
 		if randf() < RANGED_ATTACK_CHANCE:
 			var ranged_attack: State = _decide_attack(ranged_attack_states)
 
