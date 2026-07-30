@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://orl1njcmhcq2"]
+
+[ext_resource type="Script" uid="uid://okwtivsii3n1" path="res://entities/enemies/base_enemy/base_enemy.gd" id="1_yk2kt"]
+[ext_resource type="Shader" uid="uid://coptrq35m426m" path="res://shaders/hit_flash.gdshader" id="2_6gtyw"]
+[ext_resource type="Script" uid="uid://3npqo0aog1k4" path="res://scripts/states/state_machine.gd" id="3_uu5dw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n763p"]
+shader = ExtResource("2_6gtyw")
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lkvl6"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"patrol",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lkvl6"]
+radius = 9.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n763p"]
+radius = 237.0
+height = 474.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ylyo2"]
+radius = 219.0
+height = 462.0
+
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=2077725855]
+collision_layer = 32
+collision_mask = 3
+script = ExtResource("1_yk2kt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1652295864]
+material = SubResource("ShaderMaterial_n763p")
+sprite_frames = SubResource("SpriteFrames_lkvl6")
+animation = &"patrol"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=57209678]
+shape = SubResource("CapsuleShape2D_lkvl6")
+
+[node name="StateMachine" type="Node" parent="." unique_id=864803374]
+script = ExtResource("3_uu5dw")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1974238714]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1357194733]
+shape = SubResource("CapsuleShape2D_n763p")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1982266644]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=797934897]
+shape = SubResource("CapsuleShape2D_ylyo2")
