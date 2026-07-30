@@ -2,6 +2,7 @@ class_name DefendState
 extends State
 ## Restricts movement and processes shield block behavior.
 
+
 ## Minimum knockback velocity threshold before stopping horizontal movement.
 const KNOCKBACK_THRESHOLD: float = 0.1
 ## Decay factor applied to reduce knockback velocity over time.

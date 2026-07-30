@@ -30,8 +30,8 @@ func physics_update(delta: float) -> State:
 		return next_state
 
 	if not actor.is_on_floor():
-		if actor is FlyingMonster:
-			return null
+		if actor is FlyingMonster: return null
+		
 		actor.velocity.y += actor.get_gravity().y * delta
 
 	actor.velocity.x = move_toward(

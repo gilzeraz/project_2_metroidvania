@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://cnixyg7oy3enw"]
 
-[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/level_bounds/room.gd" id="1_2m4yb"]
-[ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/level_bounds/level_bounds.gd" id="1_aw2ac"]
+[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/levels/level_bounds/room.gd" id="1_2m4yb"]
+[ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/levels/level_bounds/level_bounds.gd" id="1_aw2ac"]
 [ext_resource type="TileSet" uid="uid://dj7a0rp474s0" path="res://scenes/environment/tileset/abandon_forest.tres" id="2_64smq"]
 [ext_resource type="PackedScene" uid="uid://d1w5ccem33kle" path="res://entities/player/player.tscn" id="3_1fscp"]
 [ext_resource type="Texture2D" uid="uid://qrivymf8eqb5" path="res://scenes/environment/decorations/decorative.png" id="3_64smq"]
-[ext_resource type="PackedScene" uid="uid://d3o2s5enpk48j" path="res://scenes/level_transition/transition_area.tscn" id="5_1fscp"]
+[ext_resource type="PackedScene" uid="uid://d3o2s5enpk48j" path="res://scenes/levels/level_transition/transition_area.tscn" id="5_1fscp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1fscp"]
 texture = ExtResource("3_64smq")

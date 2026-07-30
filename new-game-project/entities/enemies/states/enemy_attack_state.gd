@@ -2,6 +2,7 @@ class_name EnemyAttackState
 extends State
 ## Controls melee and dash attack states with frame-based hit detection.
 
+
 #region Properties
 ## Velocity of dash attack gravity.
 const DASH_GRAVITY: float = 490.0
@@ -28,6 +29,7 @@ var dash_direction: int = 0
 var _hit_triggered: bool = false
 var _cooldown_timer: float = 0.0
 #endregion
+
 
 ## Processes cooldown updates globally even when this state is not currently active
 func _process(delta: float) -> void:

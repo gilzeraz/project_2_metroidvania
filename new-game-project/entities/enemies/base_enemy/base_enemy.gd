@@ -6,9 +6,9 @@ extends CharacterBody2D
 ## and delegates behavior execution to a child StateMachine instance.
 
 
+#region Properties
 ## Collision mask layer used for player raycast detection queries.
 const PLAYER_DETECTION_MASK: int = 17
-
 
 ## Maximum health capacity of this enemy unit.
 @export var max_health: int = 3
@@ -21,19 +21,18 @@ const PLAYER_DETECTION_MASK: int = 17
 ## State to transition to upon health depletion.
 @export var death_state: State
 
-
 var health: int = 0
 var facing_direction: int = 1: set = _set_facing_direction
 var player_near: bool = false
 var player_visible: bool = false
 var is_initialized: bool = false
 
-
 @onready var state_machine: StateMachine = $StateMachine
 @onready var detection_area: Area2D = $DetectionArea
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var character: BaseEnemy = self
+#endregion
 
 
 func _ready() -> void:

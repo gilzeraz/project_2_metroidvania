@@ -57,48 +57,56 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	
+
 	if not is_initialized: return
-	
+
 	if (
-   state_machine.current_state == death_state
-   or state_machine.current_state == hurt_state
+		state_machine.current_state == death_state
+		or state_machine.current_state == hurt_state
 	):
 		return
-	
+
 	if state_machine.current_state == idle_state:
-		is_comboing = false #prevents cutting a combo mid-execution
-		
-	if is_comboing or not Player.player: return 
+		# prevents cutting a combo mid-execution
+		is_comboing = false
+
+	# already committed to a combo, or no player instance exists in the scene
+	if is_comboing or not Player.player: return
 
 	var distance_vector: float = Player.player.global_position.x - global_position.x
 	var direction: float = signf(distance_vector)
 	var distance: float = absf(distance_vector)
 	if direction != 0.0:
-		facing_direction = int(direction) 
+		facing_direction = int(direction)
 
-	if state_machine.current_state is EnemyIdleState: return 
+	# runs after facing_direction updates, so the enemy still turns toward
+	# the player while idle, it just won't start an attack from here
+	if state_machine.current_state is EnemyIdleState: return
 
 	if distance <= attack_range:
 		velocity.x = 0.0
 		current_combo = get_combo(attack_states, min_combo, max_combo)
-		
+
 		for i: int in range(current_combo.size()):
 			if i < current_combo.size() - 1:
-				current_combo[i].next_state = current_combo[i + 1] # dynamically chains combo states together
+				# dynamically chains combo states together
+				current_combo[i].next_state = current_combo[i + 1]
 			else:
 				current_combo[i].next_state = idle_state
-				idle_state.wait_time = randf_range(min_rest_time, max_rest_time) # randomizes post-combo rest time directly on the idle_state instance
-		
+				# randomizes post-combo rest time directly on the idle_state instance
+				idle_state.wait_time = randf_range(min_rest_time, max_rest_time)
+
 		if not current_combo.is_empty():
 			state_machine.change_state(current_combo[0])
 			is_comboing = true
 		return
-		
+
 	elif distance >= min_attack_range and distance <= max_attack_range:
+		# outside melee range but within ranged range, roll for a ranged attack
+		# instead of always firing, so the enemy doesn't spam it every frame
 		if randf() < RANGED_ATTACK_CHANCE:
 			var ranged_attack: State = _decide_attack(ranged_attack_states)
-			
+
 			if ranged_attack:
 				ranged_attack.next_state = idle_state
 				state_machine.change_state(ranged_attack)
@@ -144,7 +152,6 @@ func _set_facing_direction(direction: int) -> void:
 
 ## Filters attack options and returns a random selection
 func _decide_attack(attacks: Array[State]) -> State:
-	if attacks.is_empty():
-		return null
+	if attacks.is_empty(): return null
 
 	return attacks.pick_random()

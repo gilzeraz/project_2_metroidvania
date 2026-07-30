@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://v3bgx8cccd7v" path="res://entities/enemies/states/enemy_patrol_state.gd" id="3_h2vbh"]
 [ext_resource type="Script" uid="uid://duvqx8367mqn7" path="res://entities/enemies/states/enemy_hurt_state.gd" id="4_h2vbh"]
 [ext_resource type="Script" uid="uid://mkx6x8vwiwe5" path="res://entities/enemies/states/enemy_death_state.gd" id="5_cvuhk"]
-[ext_resource type="Script" uid="uid://n2tj7hw5322g" path="res://entities/enemies/archer/enemy_shoot_state.gd" id="7_10vut"]
+[ext_resource type="Script" uid="uid://n2tj7hw5322g" path="res://entities/enemies/archer/states/enemy_shoot_state.gd" id="7_10vut"]
 [ext_resource type="PackedScene" uid="uid://b7n4po2jc5bx4" path="res://entities/enemies/projectile/projectile.tscn" id="8_6wka2"]
 [ext_resource type="Script" uid="uid://bgao764um8ksy" path="res://entities/enemies/states/enemy_idle_state.gd" id="9_8iu36"]
 

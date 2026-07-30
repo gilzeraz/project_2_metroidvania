@@ -2,6 +2,7 @@ class_name JumpAttack
 extends State
 ## Controls aerial melee attack behavior and trajectory.
 
+
 ## Default horizontal dash force applied during aerial attack.
 const AIR_DASH_FORCE: float = 60.0
 
@@ -47,7 +48,6 @@ func exit() -> void:
 		actor.sprite.animation_finished.disconnect(_on_attack_finished)
 
 
-## Sets completion status and disconnects animation signal
 func _on_attack_finished() -> void:
 	_attack_finished = true
 	if actor.sprite.animation_finished.is_connected(_on_attack_finished):

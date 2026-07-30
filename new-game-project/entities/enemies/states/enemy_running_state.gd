@@ -2,6 +2,7 @@ class_name EnemyRunningState
 extends State
 ## Running behavior state for the enemy unit.
 
+
 ## Distante calculated not to fall.
 const RAY_DISTANCE: float = 20.0
 
@@ -10,7 +11,6 @@ const RAY_DISTANCE: float = 20.0
 ## Duration in seconds that this high-speed run behavior remains active.
 @export var run_duration: float = 3.0
 
-## Remaining time in seconds before the running state terminates.
 var _run_timer: float = 0.0
 
 

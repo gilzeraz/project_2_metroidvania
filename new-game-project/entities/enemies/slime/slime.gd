@@ -2,10 +2,10 @@ class_name Slime
 extends BaseEnemy
 ## Base controller for the Slime enemy unit.
 ##
-## Manages references to the unique behavioral state machine components 
-## associated with Slime movement and target tracking.
+## Slime movement and target tracking.
 
 
+## Set the running speed when the Slime gets hit.
 @export var running_speed: float = 300.0
 
 @onready var patrol: EnemyPatrolState = $StateMachine/Patrol

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://okwtivsii3n1" path="res://entities/enemies/base_enemy/base_enemy.gd" id="1_yk2kt"]
 [ext_resource type="Shader" uid="uid://coptrq35m426m" path="res://shaders/hit_flash.gdshader" id="2_6gtyw"]
-[ext_resource type="Script" uid="uid://3npqo0aog1k4" path="res://scripts/state/state_machine.gd" id="3_uu5dw"]
+[ext_resource type="Script" uid="uid://3npqo0aog1k4" path="res://scripts/states/state_machine.gd" id="3_uu5dw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n763p"]
 shader = ExtResource("2_6gtyw")

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cm7cpf0x88t2j"]
 
-[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/level_bounds/room.gd" id="1_0t0k1"]
+[ext_resource type="Script" uid="uid://bwhd6vdwm8tym" path="res://scenes/levels/level_bounds/room.gd" id="1_0t0k1"]
 [ext_resource type="Texture2D" uid="uid://qrivymf8eqb5" path="res://scenes/environment/decorations/decorative.png" id="1_e7oap"]
 [ext_resource type="Texture2D" uid="uid://j8ucoydxosd1" path="res://scenes/environment/background/background_1.png" id="1_k15ss"]
 [ext_resource type="TileSet" uid="uid://dj7a0rp474s0" path="res://scenes/environment/tileset/abandon_forest.tres" id="1_nvvsg"]
@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dp6llsjmpjwbf" path="res://scenes/environment/background/background_3.png.png" id="3_gply2"]
 [ext_resource type="Texture2D" uid="uid://bglung64wmr7b" path="res://scenes/environment/background/background_4.png.png" id="4_3mll4"]
 [ext_resource type="Texture2D" uid="uid://bafryr7bc383" path="res://scenes/environment/background/background_5.png.png" id="5_sg017"]
-[ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/level_bounds/level_bounds.gd" id="5_xofpe"]
+[ext_resource type="Script" uid="uid://btf4mmygwwsba" path="res://scenes/levels/level_bounds/level_bounds.gd" id="5_xofpe"]
 [ext_resource type="Texture2D" uid="uid://cvx8y270ae30p" path="res://scenes/environment/background/background_6.png.png" id="6_gply2"]
 [ext_resource type="PackedScene" uid="uid://d0hrmujxjlqom" path="res://entities/enemies/boss_01/boss_1.tscn" id="13_3bwyy"]
-[ext_resource type="PackedScene" uid="uid://d3o2s5enpk48j" path="res://scenes/level_transition/transition_area.tscn" id="13_3mll4"]
+[ext_resource type="PackedScene" uid="uid://d3o2s5enpk48j" path="res://scenes/levels/level_transition/transition_area.tscn" id="13_3mll4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k15ss"]
 texture = ExtResource("1_e7oap")

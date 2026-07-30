@@ -10,10 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://drsfqhs6747g1" path="res://entities/enemies/flying_monster/sprites/hit.png" id="7_tmpq0"]
 [ext_resource type="Texture2D" uid="uid://cw6i44rxk81ej" path="res://entities/enemies/flying_monster/sprites/idle.png" id="8_mq2t1"]
 [ext_resource type="Script" uid="uid://bgao764um8ksy" path="res://entities/enemies/states/enemy_idle_state.gd" id="10_aqoy3"]
-[ext_resource type="Script" uid="uid://yq8w13f3dsu0" path="res://entities/enemies/flying_monster/flying_enemy_state.gd" id="11_aqoy3"]
+[ext_resource type="Script" uid="uid://yq8w13f3dsu0" path="res://entities/enemies/flying_monster/states/flying_enemy_state.gd" id="11_aqoy3"]
 [ext_resource type="Script" uid="uid://duvqx8367mqn7" path="res://entities/enemies/states/enemy_hurt_state.gd" id="15_e12gt"]
 [ext_resource type="Script" uid="uid://mkx6x8vwiwe5" path="res://entities/enemies/states/enemy_death_state.gd" id="16_65n7l"]
-[ext_resource type="Script" uid="uid://dfnyse1sor1n6" path="res://entities/enemies/flying_monster/attack_combo_state.gd" id="17_7tr2b"]
+[ext_resource type="Script" uid="uid://dfnyse1sor1n6" path="res://entities/enemies/flying_monster/states/attack_combo_state.gd" id="17_7tr2b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgq2s"]
 atlas = ExtResource("2_wm8lu")

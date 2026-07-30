@@ -2,6 +2,7 @@ class_name AttackState
 extends State
 ## Controls melee combo sequences and dash momentum.
 
+
 ## Maximum time in seconds allowed between combo inputs before resetting.
 const MAX_COMBO_TIME: float = 0.3
 ## Maximum number of additional steps allowed in a combo sequence.

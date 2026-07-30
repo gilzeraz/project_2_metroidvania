@@ -132,7 +132,7 @@
 [ext_resource type="Texture2D" uid="uid://cdxwdknh7le3v" path="res://entities/player/sprites/run/run_6.png" id="130_oqiq7"]
 [ext_resource type="Texture2D" uid="uid://dgj8n1utp1qtm" path="res://entities/player/sprites/run/run_7.png" id="131_stkb1"]
 [ext_resource type="Texture2D" uid="uid://7odt4c1mkfei" path="res://entities/player/sprites/run/run_8.png" id="132_le7e8"]
-[ext_resource type="Script" uid="uid://3npqo0aog1k4" path="res://scripts/state/state_machine.gd" id="133_7a3o0"]
+[ext_resource type="Script" uid="uid://3npqo0aog1k4" path="res://scripts/states/state_machine.gd" id="133_7a3o0"]
 [ext_resource type="Script" uid="uid://dfyo1vut76jd6" path="res://entities/player/states/player_idle_state.gd" id="134_tb85g"]
 [ext_resource type="Script" uid="uid://c27hruq3ccneu" path="res://entities/player/states/player_run_state.gd" id="135_kkbfc"]
 [ext_resource type="Script" uid="uid://kj1fhrpgk0tw" path="res://entities/player/states/player_jump_state.gd" id="136_75j7d"]
