@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c2ondubgrymyn"]
+[gd_scene format=3 uid="uid://d1mxssgxegex3"]
 
-[ext_resource type="Script" uid="uid://cce4b4n5sbxjr" path="res://resources/collectibles.gd" id="1_c37ip"]
+[ext_resource type="Script" path="res://resources/collectibles.gd" id="1_c37ip"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3i7w0"]
 
