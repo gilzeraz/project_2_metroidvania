@@ -22,10 +22,14 @@ static var player: Player = null
 
 ## Maximum health value assigned to the player on initialization.
 @export var max_health: int = 8
+## Maximum mana value assigned to the player on initialization.
+@export var max_mana: int = 8
 
 var speed: float = 300.0
 var dropping_through_timer: float = 0.25
 var health: int = 0
+var mana: int = 0
+var coins: int = 0
 var jump_count: int = MAX_JUMPS
 var is_invincible: bool = false
 var is_defending: bool = false
@@ -53,6 +57,7 @@ var _impact_velocity: float = 0.0
 #endregion
 
 func _ready() -> void:
+	mana = max_mana
 	health = max_health
 	state_machine.initialize(idle, self)
 	player = self
@@ -126,3 +131,16 @@ func take_damage(damage_amount: int, attacker: Node2D = null) -> void:
 			state_machine.change_state(hurt)
 		else:
 			state_machine.change_state(death)
+			
+			
+## Applies the effect of a collected item to the corresponding player stat.
+func apply_item(item_data: ItemData) -> void:
+	match item_data.effect:
+		ItemData.EffectType.HEAL:
+			health += item_data.value
+			health = clamp(health, 0, max_health)
+		ItemData.EffectType.MANA:
+			mana += item_data.value
+			mana = clamp(mana, 0, max_mana)
+		ItemData.EffectType.CURRENCY:
+			coins += item_data.value
