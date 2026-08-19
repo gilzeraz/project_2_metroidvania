@@ -20,7 +20,5 @@ func _ready() -> void:
 
 ## Applies the collectible's effect to the player and removes it from the scene.
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
-		return
 	Player.player.apply_item(item_data)
 	queue_free()
